@@ -1,5 +1,5 @@
 import { saveAs } from 'file-saver';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // const memeOptions = [
 //   'https://api.memegen.link/images/buzz/memes/memes_everywhere.gif',
@@ -22,46 +22,53 @@ export default function MemeGenerator() {
   const handleSubmit = (event) => {
     event.preventDefault();
   };
+
+  // const memeOptions = useEffect(() => {
+  //     async fetch('https://api.memegen.link/images')
+  //     .then((r) =>r.json()
+  //     .then(memeOptions),
+  //   );
+  // });
   const memeOptions = ['https://api.memegen.link/images/templates.png'];
   return (
     <main>
       <h1>MEME GENERATOR</h1>
       <div className="App">
         <div>
-          <form onSubmit={handleSubmit}>
-            <select
-              name="Meme template"
-              placeholder="Select meme type"
-              value={memeTemplate}
-              onChange={(e) => {
-                setMemeTemplate(e.currentTarget.value);
-              }}
-            >
-              {memeOptions.map((option, index) => (
-                <option key={index} value={option}>
-                  Option {index + 1}
-                </option>
-              ))}
-            </select>
-          </form>
-
+          <input
+            placeholder="Write Your Top Text"
+            type="text"
+            value={topText}
+            onChange={(event) => setTopText(event.currentTarget.value)}
+          />
+          <br />
+          <input
+            placeholder="Write Your Lower Text"
+            type="text"
+            value={bottomText}
+            onChange={(event) => setBottomText(event.currentTarget.value)}
+          />
+          <br />
+          <br />
           <div>
-            <input
-              placeholder="Write Your Top Text"
-              type="text"
-              value={topText}
-              onChange={(event) => setTopText(event.currentTarget.value)}
-            />
-            <br />
-            <input
-              placeholder="Write Your Lower Text"
-              type="text"
-              value={bottomText}
-              onChange={(event) => setBottomText(event.currentTarget.value)}
-            />
-            <br />
-            <br />
             <div>
+              <form onSubmit={handleSubmit}>
+                <select
+                  name="Meme template"
+                  placeholder="Select meme type"
+                  value={memeTemplate}
+                  onChange={(e) => {
+                    setMemeTemplate(e.currentTarget.value);
+                  }}
+                >
+                  {memeOptions.map((option, index) => (
+                    <option key={index} value={option}>
+                      Option {index + 1}
+                    </option>
+                  ))}
+                </select>
+              </form>
+              <br />
               <button onClick={saveFile}>Download</button>
             </div>
           </div>
